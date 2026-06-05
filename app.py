@@ -16,6 +16,7 @@ pages = st.navigation(
     [
         st.Page("views/dashboard.py", title="대시보드", icon="📊", default=True),
         st.Page("views/trades.py", title="거래 입력", icon="📒"),
+        st.Page("views/import_csv.py", title="거래내역 가져오기", icon="📥"),
         st.Page("views/cash.py", title="현금 · 환전", icon="💱"),
         st.Page("views/dividends.py", title="배당금", icon="💰"),
         st.Page("views/performance.py", title="성과 분석", icon="📈"),

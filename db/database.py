@@ -59,6 +59,35 @@ def add_trade(
     )
 
 
+def add_trade_if_new(
+    trade_date: str,
+    symbol: str,
+    asset_type: str,
+    side: str,
+    quantity: float,
+    price: float,
+    fee: float,
+    currency: str,
+    note: str = "",
+    external_id: str | None = None,
+) -> bool:
+    """external_id 중복이면 건너뛰는 멱등 삽입 (CSV 가져오기·증권사 동기화용).
+
+    returns: 실제로 삽입됐으면 True, 중복으로 건너뛰었으면 False
+    """
+    with get_connection() as conn:
+        cur = conn.execute(
+            """
+            INSERT OR IGNORE INTO trades
+                (trade_date, symbol, asset_type, side, quantity, price, fee, currency, note, external_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (trade_date, symbol.strip().upper(), asset_type, side, quantity, price, fee, currency, note, external_id),
+        )
+        conn.commit()
+        return cur.rowcount > 0
+
+
 def get_trades() -> pd.DataFrame:
     return fetch_df("SELECT * FROM trades ORDER BY trade_date, id")
 

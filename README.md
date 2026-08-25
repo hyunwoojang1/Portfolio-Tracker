@@ -1,3 +1,5 @@
+> **Archived** - superseded by [finance-platform](https://github.com/hyunwoojang1/finance-platform), which rebuilt this as a Next.js module with Supabase.
+
 # Portfolio Tracker
 
 개인용 포트폴리오 트래커 (Streamlit + SQLite). [Portfolio Visualizer](https://www.portfoliovisualizer.com/) 느낌의 로컬 앱.
